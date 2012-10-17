@@ -16,7 +16,10 @@ TwoDArray<T>::TwoDArray(int r, int c, T def) {
 }
 template <typename T>
 TwoDArray<T>::~TwoDArray<T>() {
-  
+  for(int i = 0; i<rows; i++) {
+    delete[] theArray[i];
+  }
+  delete[] theArray;
 }
 template <typename T>
 void TwoDArray<T>::insert(int r, int c, T value) {
@@ -32,7 +35,24 @@ void TwoDArray<T>::remove(int r, int c) {
 }
 template <typename T>
 void TwoDArray<T>::print() {
-  
+  std::cout<<"{";
+  for(int i = 0; i<rows; i++) {
+    std::cout<<"[";
+    for(int j = 0; j<cols; j++) {
+      if(j!=cols-1) {
+        std::cout<<theArray[i][j]<<", ";
+      }
+      else {
+        std::cout<<theArray[i][j]<<"]";
+      }
+    }
+    if(i!=rows-1) {
+      std::cout<<std::endl<<" ";
+    }
+    else {
+      std::cout<<"}"<<std::endl;
+    }
+  }
 }
 template <typename T>
 int TwoDArray<T>::getNumRows() {

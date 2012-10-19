@@ -1,4 +1,5 @@
 *.o
 *.*.gch
-test
+*_test
 build/*
+test.cpp

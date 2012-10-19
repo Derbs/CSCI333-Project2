@@ -1,6 +1,7 @@
 #include <iostream>
 #include "TwoDArray.h"
 #include <vector>
+#include "assert.h"
 using std::vector;
 template <typename T>
 TwoDArray<T>::TwoDArray(int r, int c, T def) {

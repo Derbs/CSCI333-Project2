@@ -1,8 +1,11 @@
 #include <iostream>
 #include "TwoDArray.h"
+#include "assert.h"
 
 template <typename T>
 TwoDArray<T>::TwoDArray(int r, int c, T def) {
+  assert(r > 0);
+  assert(c > 0);
   rows = r;
   cols = c;
   theArray = new T*[rows];
@@ -14,6 +17,7 @@ TwoDArray<T>::TwoDArray(int r, int c, T def) {
     }
   }
 }
+
 template <typename T>
 TwoDArray<T>::~TwoDArray<T>() {
   for(int i = 0; i<rows; i++) {
@@ -21,16 +25,29 @@ TwoDArray<T>::~TwoDArray<T>() {
   }
   delete[] theArray;
 }
+
 template <typename T>
 void TwoDArray<T>::insert(int r, int c, T value) {
+  assert(r>=0);
+  assert(r<rows);
+  assert(c>=0);
+  assert(c<cols);
   theArray[r][c] = value;
 }
 template <typename T>
 T TwoDArray<T>::access(int r, int c) {
+  assert(r>=0);
+  assert(r<rows);
+  assert(c>=0);
+  assert(c<cols);
   return theArray[r][c];
 }
 template <typename T>
 void TwoDArray<T>::remove(int r, int c) {
+  assert(r>=0);
+  assert(r<rows);
+  assert(c>=0);
+  assert(c<cols);
   theArray[r][c] = defVal;
 }
 template <typename T>

@@ -9,8 +9,7 @@ $(BUILD)/ArrTest: TwoDArray.o test.cpp
 	$(CMP) -o $@ $^ $(FLAGS)
 
 TwoDArray.o: TwoDArray.cpp TwoDArray.h
-	$(CMP) -c $^ $(FLAGS)
-	rm *.*.gch
+	$(CMP) -c $< $(FLAGS)
 
 clean:
 	rm -f *.o

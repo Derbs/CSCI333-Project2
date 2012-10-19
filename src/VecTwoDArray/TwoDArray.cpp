@@ -15,7 +15,12 @@ TwoDArray<T>::TwoDArray(int r, int c, T def) {
 
 template <typename T>
 TwoDArray<T>::~TwoDArray<T>() {
-  //TODO
+  //The vector may be made on the stack, but almost all of its internal stuff stays on the heap.
+  //still, we can do this:
+  for(int i = 0; i<rows; i++) {
+    theArray[i].clear();
+  }
+  theArray.clear();
 }
 
 template <typename T>

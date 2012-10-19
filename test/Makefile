@@ -11,7 +11,7 @@ COMP = g++
 FLAGS = -Wall -Wextra -Werror
 
 all:
-	make ArrayBased_test
+
 
 
 ArrayBased_test: TwoDArrayTest.cpp TwoDArray.o $(GTEST_MAINA)

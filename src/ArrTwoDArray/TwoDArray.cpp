@@ -28,26 +28,17 @@ TwoDArray<T>::~TwoDArray<T>() {
 
 template <typename T>
 void TwoDArray<T>::insert(int r, int c, T value) {
-  assert(r>=0);
-  assert(r<rows);
-  assert(c>=0);
-  assert(c<cols);
+  assert(r>=0&&r<rows && c>=0&&c<cols);
   theArray[r][c] = value;
 }
 template <typename T>
 T TwoDArray<T>::access(int r, int c) {
-  assert(r>=0);
-  assert(r<rows);
-  assert(c>=0);
-  assert(c<cols);
+  assert(r>=0&&r<rows && c>=0&&c<cols);
   return theArray[r][c];
 }
 template <typename T>
 void TwoDArray<T>::remove(int r, int c) {
-  assert(r>=0);
-  assert(r<rows);
-  assert(c>=0);
-  assert(c<cols);
+  assert(r>=0 && r<rows && c>=0 && c<cols);
   theArray[r][c] = defVal;
 }
 template <typename T>

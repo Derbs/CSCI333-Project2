@@ -29,6 +29,10 @@ TEST(TwoDArrayTest, Access) {
   sqArr->insert(2,1,4);
   EXPECT_EQ(sqArr->access(2,1),4);
 
+  //should fail/break in runtime (out of bounds):
+  //does fail:  sqArr->insert(3,3,5);
+  //does fail:  sqArr->access(1,4);
+
   int randNum = clock()%100;
 
   sqArr = new TwoDArray<int>(3,3,randNum);
@@ -88,4 +92,77 @@ TEST(TwoDArrayTest, Insert) {
   
   delete strArr;
 
+}
+
+TEST(TwoDArrayTest, Remove) {
+  int randNum = clock()%10;
+  TwoDArray<int>* sqArr = new TwoDArray<int>(3,3,randNum);
+  EXPECT_EQ(sqArr->access(0,2),randNum);
+  for(int i = 0; i<3; i++) {
+    sqArr->insert(i,i,-10);
+  }
+  EXPECT_FALSE(sqArr->access(2,0)==-10);
+  EXPECT_EQ(sqArr->access(2,2),-10);
+  sqArr->remove(2,2);
+  EXPECT_EQ(sqArr->access(2,2), randNum);
+  delete sqArr;
+
+  TwoDArray<double>* dblArr = new TwoDArray<double>(3,9,-0.1324);
+  EXPECT_EQ(dblArr->access(1,5),-0.1324);
+  dblArr->remove(1,5);
+  EXPECT_EQ(dblArr->access(1,5),-0.1324);
+  dblArr->insert(2,4,3.2);
+  dblArr->insert(0,6,2.3);
+  dblArr->insert(1,5,13.42);
+  EXPECT_EQ(dblArr->access(1,5),13.42);
+  EXPECT_EQ(dblArr->access(0,6),2.3);
+  dblArr->remove(0,6);
+  dblArr->remove(1,5);
+  EXPECT_EQ(dblArr->access(0,6),-0.1324);
+  EXPECT_EQ(dblArr->access(1,5),-0.1324);
+  delete dblArr;
+
+  TwoDArray<std::string>* strArr = new TwoDArray<std::string>(4,2,"meow");
+  strArr->insert(3,1,"moo");
+  EXPECT_TRUE(strArr->access(0,0).compare("meow")==0);
+  EXPECT_FALSE(strArr->access(3,1).compare("meow")==0);
+  EXPECT_TRUE(strArr->access(3,1).compare("moo")==0);
+  strArr->remove(3,1);
+  EXPECT_TRUE(strArr->access(3,1).compare("meow")==0);
+  delete strArr;
+}
+
+TEST(TwoDArrayTest, NumRows) {
+  int randNum = clock()%10;
+  TwoDArray<int>* sqArr = new TwoDArray<int>(3,3,randNum);
+  EXPECT_EQ(sqArr->getNumRows(),3);
+  delete sqArr;
+
+  TwoDArray<double>* dblArr = new TwoDArray<double>(randNum*5+2,randNum*5+5,.1234);
+  EXPECT_EQ(dblArr->getNumRows(),randNum*5+2);
+  EXPECT_FALSE(dblArr->getNumRows()==(randNum*5+5));
+  delete dblArr;
+
+  TwoDArray<std::string>* strArr = new TwoDArray<std::string>(4321,56,"qwer");
+  EXPECT_EQ(strArr->getNumRows(),4321);
+  int oddLength = strArr->getNumRows()*((strArr->access(25,50)).length());
+  EXPECT_EQ(oddLength, (4321*4));
+  delete strArr;
+}
+
+TEST(TwoDArrayTest, NumCols) {
+  int randNum = clock()%10;
+  TwoDArray<int>* sqArr = new TwoDArray<int>(3,7,randNum);
+  EXPECT_EQ(sqArr->getNumCols(),7);
+  delete sqArr;
+
+  TwoDArray<double>* dblArr = new TwoDArray<double>(randNum*5+2,randNum*5+5,.1234);
+  EXPECT_EQ(dblArr->getNumCols(),randNum*5+5);
+  EXPECT_FALSE(dblArr->getNumCols()==(randNum*5));
+  delete dblArr;
+
+  TwoDArray<std::string>* strArr = new TwoDArray<std::string>(4321,56,"qwerty");
+  int oddLength = strArr->getNumCols()*((strArr->access(25,50)).length());
+  EXPECT_EQ(oddLength, (56*6));
+  delete strArr;
 }

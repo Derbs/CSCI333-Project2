@@ -32,3 +32,4 @@ init:
 clean:
 	cd $(SRC)/ArrTwoDArray; make clean;
 	rm -rf $(BUILD)
+	rm -f $(TEST)/*_test

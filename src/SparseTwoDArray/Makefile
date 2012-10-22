@@ -9,6 +9,9 @@ FLAGS = -Wall -Wextra -Werror
 test: NodeTest.cpp Node.cpp Node.h
 	$(COMP) -o $@ $^ $(FLAGS)
 
+TwoDArray.o: TwoDArray.cpp TwoDArray.h
+	$(COMP) -c $< $(FLAGS)
+
 Node.o: Node.cpp Node.h
 	$(COMP) -c $< $(FLAGS)
 

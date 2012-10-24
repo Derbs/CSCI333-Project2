@@ -4,13 +4,22 @@
 template <typename T>
 class Node {
   private:
-    Node<T>* next;
+    Node<T>* nextRow;
+    Node<T>* nextCol;
     T value;
+    int row;
+    int col;
   public: 
-    Node<T>(Node<T>* nxt, T val);
+    Node<T>(Node<T>* nxtRow, Node<T>* nxtCol, T val, int r, int c);
     ~Node<T>();
-    void setNext(Node* nxt);
-    Node<T>* getNext();
+    void setNextRow(Node* nxt);
+    void setNextCol(Node* nxt);
+    void setRow(int r);
+    void setCol(int c);
+    int getRow();
+    int getCol();
+    Node<T>* getNextRow();
+    Node<T>* getNextCol();
     T getValue();
 };
 

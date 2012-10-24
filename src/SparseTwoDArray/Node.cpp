@@ -1,9 +1,14 @@
 #include "Node.h"
 #include <iostream> 
+#include "assert.h"
 
 template <typename T>
-Node<T>::Node(Node* nxt = 0, T val = new T()) {
-  next = nxt;
+Node<T>::Node(Node* nxtRow = 0, Node* nxtCol = 0, T val = new T(), int r = 0, int c = 0) {
+  assert(r>=-1 && c>=-1);
+  row = r;
+  col = c;
+  nextRow = nxtRow;
+  nextCol = nxtCol;
   value = val;
 }
 
@@ -13,13 +18,45 @@ Node<T>::~Node() {
 }
 
 template <typename T>
-void Node<T>::setNext(Node* nxt) {
-  next = nxt;
+void Node<T>::setNextRow(Node* nxt) {
+  nextRow = nxt;
 }
 
 template <typename T>
-Node<T>* Node<T>::getNext() {
-  return next;
+void Node<T>::setNextCol(Node* nxt) {
+  nextCol = nxt;
+}
+
+template <typename T>
+void Node<T>::setRow(int r) {
+  assert(r>=0);
+  row = r;
+}
+
+template <typename T>
+void Node<T>::setCol(int c) {
+  assert(c>=0);
+  col = c;
+}
+
+template <typename T>
+int Node<T>::getRow() {
+  return row;
+}
+
+template <typename T>
+int Node<T>::getCol() {
+  return col;
+}
+
+template <typename T>
+Node<T>* Node<T>::getNextRow() {
+  return nextRow;
+}
+
+template <typename T>
+Node<T>* Node<T>::getNextCol() {
+  return nextCol;
 }
 
 template <typename T>

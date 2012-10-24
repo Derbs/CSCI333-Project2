@@ -3,7 +3,7 @@
 #include "assert.h"
 
 template <typename T>
-Node<T>::Node(Node* nxtRow = 0, Node* nxtCol = 0, T val = new T(), int r = 0, int c = 0) {
+Node<T>::Node(Node<T>* nxtRow = 0, Node<T>* nxtCol = 0, T val = new T(), int r = 0, int c = 0) {
   assert(r>=-1 && c>=-1);
   row = r;
   col = c;
@@ -18,12 +18,12 @@ Node<T>::~Node() {
 }
 
 template <typename T>
-void Node<T>::setNextRow(Node* nxt) {
+void Node<T>::setNextRow(Node<T>* nxt) {
   nextRow = nxt;
 }
 
 template <typename T>
-void Node<T>::setNextCol(Node* nxt) {
+void Node<T>::setNextCol(Node<T>* nxt) {
   nextCol = nxt;
 }
 

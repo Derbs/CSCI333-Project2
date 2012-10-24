@@ -102,6 +102,38 @@ void TwoDArray<T>::insert(int r, int c, T value) {
   }
 }
 
+template <typename T>
+void TwoDArray<T>::print() {
+  std::cout<<"{";
+  Node<T>* curr;
+  for(int i = 0; i<numRows; i++) {
+    curr = rows[i]->getNextCol();
+
+    if(i!=0) std::cout<<" {"; 
+    else std::cout<<"{";
+    for(int j = 0; j<numCols; j++) {
+      if(curr!=0 && j==curr->getCol()) {
+	std::cout<<curr->getValue();
+	curr = curr->getNextCol();
+      }
+      else {
+	std::cout<<defVal;
+      }
+
+      if(j!=numCols-1) {
+	std::cout<<", ";
+      }
+      else {
+	std::cout<<"}";
+      }
+    }
+    if(i!=numRows-1) {
+      std::cout<<std::endl;
+    }
+  }
+  std::cout<<"}"<<std::endl;
+}
+
 template class TwoDArray<int>;
 template class TwoDArray<std::string>;
 template class TwoDArray<double>;  

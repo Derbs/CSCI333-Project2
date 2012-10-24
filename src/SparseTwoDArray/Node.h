@@ -12,8 +12,8 @@ class Node {
   public: 
     Node<T>(Node<T>* nxtRow, Node<T>* nxtCol, T val, int r, int c);
     ~Node<T>();
-    void setNextRow(Node* nxt);
-    void setNextCol(Node* nxt);
+    void setNextRow(Node<T>* nxt);
+    void setNextCol(Node<T>* nxt);
     void setRow(int r);
     void setCol(int c);
     int getRow();

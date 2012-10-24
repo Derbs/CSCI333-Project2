@@ -6,6 +6,9 @@ TEST = ../../test
 COMP = g++
 FLAGS = -Wall -Wextra -Werror
 
+arrtest: ArrTest.cpp TwoDArray.o Node.o
+	$(COMP) -o $@ $^ $(FLAGS)
+
 test: NodeTest.cpp Node.cpp Node.h
 	$(COMP) -o $@ $^ $(FLAGS)
 
@@ -17,4 +20,4 @@ Node.o: Node.cpp Node.h
 
 clean:
 	rm -f *.o
-	rm -f test
+	rm -f *test

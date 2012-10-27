@@ -67,12 +67,11 @@ TEST(TwoDArrayTest, Insert) {
   TwoDArray<double>* geoArr = new TwoDArray<double>(3,5,2.0);
   for(int i = 0; i<geoArr->getNumRows(); i++) {
     for(int j = 0; j<geoArr->getNumCols(); j++) {
-      for(int iter = i+j; iter>0; iter--) {
+      for(int iter = i+j; iter>0; --iter) {
         geoArr->insert(i,j,geoArr->access(i,j)/2);
       }
     }
   }
-  
   EXPECT_EQ(geoArr->access(2,1),.25);
   EXPECT_EQ(geoArr->access(2,3),.0625);
   delete geoArr;
@@ -98,6 +97,7 @@ TEST(TwoDArrayTest, Remove) {
   int randNum = clock()%10;
   TwoDArray<int>* sqArr = new TwoDArray<int>(3,3,randNum);
   EXPECT_EQ(sqArr->access(0,2),randNum);
+  
   for(int i = 0; i<3; i++) {
     sqArr->insert(i,i,-10);
   }
@@ -110,17 +110,29 @@ TEST(TwoDArrayTest, Remove) {
   TwoDArray<double>* dblArr = new TwoDArray<double>(3,9,-0.1324);
   EXPECT_EQ(dblArr->access(1,5),-0.1324);
   dblArr->remove(1,5);
+
   EXPECT_EQ(dblArr->access(1,5),-0.1324);
+  //std::cout<<"No seg fault"<<std::endl;
   dblArr->insert(2,4,3.2);
   dblArr->insert(0,6,2.3);
+  std::cout<<"No seg fault"<<std::endl;
   dblArr->insert(1,5,13.42);
+  std::cout<<"No seg fault"<<std::endl;
+  dblArr->print();
   EXPECT_EQ(dblArr->access(1,5),13.42);
+  std::cout<<"No seg fault"<<std::endl;
   EXPECT_EQ(dblArr->access(0,6),2.3);
+  std::cout<<"No seg fault"<<std::endl;
   dblArr->remove(0,6);
+  std::cout<<"No seg fault"<<std::endl;
   dblArr->remove(1,5);
+  std::cout<<"No seg fault"<<std::endl;
   EXPECT_EQ(dblArr->access(0,6),-0.1324);
+  std::cout<<"No seg fault"<<std::endl;
   EXPECT_EQ(dblArr->access(1,5),-0.1324);
+  std::cout<<"No seg fault"<<std::endl;
   delete dblArr;
+
 
   TwoDArray<std::string>* strArr = new TwoDArray<std::string>(4,2,"meow");
   strArr->insert(3,1,"moo");

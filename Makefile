@@ -11,6 +11,7 @@ all:
 	make init
 	make ArrayBased2DArray
 	make VecBased2DArray
+	make Sparse2DArray
 
 ArrayBased2DArray:  
 	cd $(SRC)/ArrTwoDArray; make;
@@ -25,6 +26,18 @@ VecBased2DArray:
 	cp $(SRC)/VecTwoDArray/TwoDArray.h $(TEST)/;
 	cd $(TEST); make VecBased_test;
 	rm -f $(TEST)/TwoDArray.*
+
+
+Sparse2DArray:
+	cd $(SRC)/SparseTwoDArray; make;
+	cp $(SRC)/SparseTwoDArray/TwoDArray.o $(TEST)/;
+	cp $(SRC)/SparseTwoDArray/TwoDArray.h $(TEST)/;
+	cp $(SRC)/SparseTwoDArray/Node.o $(TEST)/;
+	cp $(SRC)/SparseTwoDArray/Node.h $(TEST)/;
+	cd $(TEST); make SparseBased_test;
+	rm -f $(TEST)/TwoDArray.*
+	rm -f $(TEST)/Node.*
+
 
 init:
 	mkdir -p $(BUILD) $(TEST) $(SRC) $(LIB)

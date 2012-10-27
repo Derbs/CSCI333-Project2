@@ -5,6 +5,7 @@
 template <typename T>
 TwoDArray<T>::TwoDArray(int r = 5, int c = 5, T def = T()) {
   assert(r>0 && c>0);
+  //std::cout<<"There are " << r << " rows and " << c << "columns"<<std::endl;
   numRows = r;
   numCols = c;
   defVal = def;
@@ -20,7 +21,32 @@ TwoDArray<T>::TwoDArray(int r = 5, int c = 5, T def = T()) {
 
 template <typename T>
 TwoDArray<T>::~TwoDArray<T>() {
-  //TODO
+  Node<T>* prv;
+  Node<T>* curr;
+  if(numRows>numCols) {
+    for(int i = 0; i<numRows; i++) {
+      curr = rows[i]->getNextCol();
+      prv = curr;
+      while(curr!=0) {
+        prv = curr;
+	curr = curr->getNextCol();
+	delete prv;
+      }
+    }
+  }
+  else {
+    for(int i = 0; i<numCols; i++) {
+      curr = cols[i]->getNextRow();
+      prv = curr;
+      while(curr!=0) {
+        prv = curr;
+	curr = curr->getNextRow();
+	delete prv;
+      }
+    }
+  }
+  delete[] rows;
+  delete[] cols;
 }
 
 template <typename T>
@@ -44,10 +70,11 @@ void TwoDArray<T>::insert(int r, int c, T value) {
     Node<T>* curr = prvNode->getNextCol();
     while(curr!=0) {
       if(curr->getCol()==c) {
-	Node<T>* temp = curr->getNextRow();
+        //Node<T>* temp = curr;
 	prvNode->setNextCol(toBeAdded);
-	toBeAdded->setNextCol(temp);
-	delete curr;
+	toBeAdded->setNextCol(curr->getNextCol());
+        toBeAdded->setNextRow(curr->getNextRow());
+	//delete curr;
 	break;
       }
       else if(curr->getCol()>c) {
@@ -80,8 +107,8 @@ void TwoDArray<T>::insert(int r, int c, T value) {
     Node<T>* curr = prvNode->getNextRow();
     while(curr!=0) {
       if(curr->getRow()==r) {
-	Node<T>* temp = curr->getNextRow();
-	toBeAdded->setNextRow(temp);
+	//Node<T>* temp = curr;
+	//toBeAdded->setNextRow(temp);
 	prvNode->setNextRow(toBeAdded);
 	delete curr;
 	break;
@@ -101,6 +128,77 @@ void TwoDArray<T>::insert(int r, int c, T value) {
     }
   }
 }
+
+template <typename T>
+T TwoDArray<T>::access(int r, int c) {
+  assert(r>=0 && r<numRows);
+  assert(c>=0 && c<numCols);
+  T returnedValue = defVal;
+  if(numRows>=numCols) { //if we have more rows than columns, then access row directly, iterate 
+			 //through columns.
+    Node<T>* curr = rows[r]->getNextCol();
+    while(curr!=0 && curr->getCol() <= c) {
+      if(curr->getCol() == c) {
+	returnedValue = curr->getValue();
+
+	return returnedValue;
+      }
+      curr = curr->getNextCol();
+    }
+    
+  }
+  else {  //if we have more columns than rows, then we access col directly and iterate through rows
+    Node<T>* curr = cols[c]->getNextRow();
+
+    while(curr!=0 && curr->getRow() <= r) {
+      if(curr->getRow() == r) {
+	returnedValue = curr->getValue();
+
+	return returnedValue;
+      }
+      curr = curr->getNextRow();
+    }
+  }
+
+  return returnedValue;
+}
+
+template <typename T>
+void TwoDArray<T>::remove(int r, int c) {
+  //we want to do something similar to access, but instead of returning the value, we'll just delete
+  //the Node with that row/col identification (if it exists).  If it doesn't exist, we'll do nothing
+  assert(r>=0 && r<numRows);
+  assert(c>=0 && c<numCols);
+  if(numRows>=numCols) { //if we have more rows than columns, then access row directly, iterate 
+			 //through columns.
+    Node<T>* prv = rows[r];
+    Node<T>* curr = rows[r]->getNextCol();
+    while(curr!=0 && curr->getCol() <= c) {
+      if(curr->getCol() == c) {
+        prv->setNextCol(curr->getNextCol());
+	delete curr;
+	return;
+      }
+      prv = curr;
+      curr = curr->getNextCol();
+    }
+  }
+  else {  //if we have more columns than rows, then we access col directly and iterate through rows
+    Node<T>* curr = cols[r]->getNextRow();
+    Node<T>* prv = cols[c];
+    while(curr!=0 && curr->getRow() <= r) {
+      if(curr->getRow() == r) {
+        prv->setNextRow(curr->getNextRow());
+	delete curr;
+	return;
+      }
+      prv = curr;
+      curr = curr->getNextRow();
+    }
+  }
+}
+
+
 
 template <typename T>
 void TwoDArray<T>::print() {
@@ -132,6 +230,16 @@ void TwoDArray<T>::print() {
     }
   }
   std::cout<<"}"<<std::endl;
+}
+
+template <typename T>
+int TwoDArray<T>::getNumRows() {
+  return numRows;
+}
+
+template <typename T>
+int TwoDArray<T>::getNumCols() {
+  return numCols;
 }
 
 template class TwoDArray<int>;

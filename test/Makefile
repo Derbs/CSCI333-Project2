@@ -19,7 +19,7 @@ ArrayBased_test: TwoDArrayTest.cpp TwoDArray.o $(GTEST_MAINA)
 
 VecBased_test: TwoDArrayTest.cpp TwoDArray.o $(GTEST_MAINA)
 	$(COMP) $(FLAGS) $(GTEST_INCLUDES) -pthread -o $@ $^
-LinkBased_test: TwoDArrayTest.cpp TwoDArray.o $(GTEST_MAINA)
+SparseBased_test: TwoDArrayTest.cpp TwoDArray.o Node.o $(GTEST_MAINA)
 	$(COMP) $(FLAGS) $(GTEST_INCLUDES) -pthread -o $@ $^
 $(GTEST_MAINA): $(GTEST)/src/*.cc $(GTEST)/src/*.h
 	cd $(GTEST)/make; make

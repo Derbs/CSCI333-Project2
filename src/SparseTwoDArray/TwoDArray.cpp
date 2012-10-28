@@ -140,7 +140,6 @@ T TwoDArray<T>::access(int r, int c) {
     while(curr!=0 && curr->getCol() <= c) {
       if(curr->getCol() == c) {
 	returnedValue = curr->getValue();
-
 	return returnedValue;
       }
       curr = curr->getNextCol();
@@ -173,21 +172,24 @@ void TwoDArray<T>::remove(int r, int c) {
   Node<T>* curr = rows[r]->getNextCol();
   while(curr!=0 && curr->getCol() <= c) {
     if(curr->getCol() == c) {
-      prv->setNextCol(curr->getNextCol());	
+      Node<T>* temp = curr->getNextCol();
+      prv->setNextCol(temp);	
       break;
     }
-    prv = curr;
+    prv = prv->getNextCol();
     curr = curr->getNextCol();
   }
 
-  curr = cols[r]->getNextRow();
   prv = cols[c];
+  curr = cols[c]->getNextRow();
   while(curr!=0 && curr->getRow() <= r) {
     if(curr->getRow() == r) {
-      prv->setNextRow(curr->getNextRow());
+      Node<T>* temp = curr->getNextRow();
+      prv->setNextRow(temp);
+      delete curr;
       break;
     }
-    prv = curr;
+    prv = prv->getNextRow();
     curr = curr->getNextRow();
   }
   return;
@@ -217,7 +219,7 @@ void TwoDArray<T>::print() {
 	std::cout<<", ";
       }
       else {
-	std::cout<<"}";
+	std::cout<<"},";
       }
     }
     if(i!=numRows-1) {

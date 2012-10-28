@@ -13,14 +13,11 @@ int main() {
   geoArr->insert(1,2,.25);
 
   for(int i = 0; i<3; i++) {
-
     for(int j = 0; j<5; j++) {
-      if(i==1 && j==2) { 
-        //do nothing
-      }
-      else { 
-        geoArr->insert(i,j,i+j); 
-      }
+      geoArr->insert(i,j,i+j);
+      if(j%2 == 1) {
+        geoArr->remove(i,j);
+      } 
     }
   }
   geoArr->print();

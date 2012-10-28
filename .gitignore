@@ -1,6 +1,7 @@
 *.o
 *.*.gch
 *_test
+*test
 build/*
 test.cpp
 *.swp

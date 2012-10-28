@@ -65,6 +65,9 @@ TEST(TwoDArrayTest, Insert) {
   delete sqArr;
 
   TwoDArray<double>* geoArr = new TwoDArray<double>(3,5,2.0);
+  geoArr->insert(0,0,2.0);
+  geoArr->insert(2,0,2.0);
+  geoArr->insert(0,4,2.0);
   for(int i = 0; i<geoArr->getNumRows(); i++) {
     for(int j = 0; j<geoArr->getNumCols(); j++) {
       for(int iter = i+j; iter>0; --iter) {
@@ -112,14 +115,13 @@ TEST(TwoDArrayTest, Remove) {
   dblArr->remove(1,5);
 
   EXPECT_EQ(dblArr->access(1,5),-0.1324);
-  //std::cout<<"No seg fault"<<std::endl;
   dblArr->insert(2,4,3.2);
   dblArr->insert(0,6,2.3);
   dblArr->insert(1,0,5);
   dblArr->remove(1,0);
   dblArr->insert(1,5,13.42);
   dblArr->remove(1,5);
-  EXPECT_EQ(dblArr->access(1,5),13.42);
+  EXPECT_EQ(dblArr->access(1,5),-.1324);
   EXPECT_EQ(dblArr->access(0,6),2.3);
   dblArr->remove(0,6);
   dblArr->remove(1,5);
@@ -133,12 +135,9 @@ TEST(TwoDArrayTest, Remove) {
   strArr->insert(3,1,"chicken");
   EXPECT_TRUE(strArr->access(0,0).compare("meow")==0);
   EXPECT_FALSE(strArr->access(3,1).compare("meow")==0);
-  EXPECT_TRUE(strArr->access(3,1).compare("moo")==0);
-  std::cout<<"No seg fault"<<std::endl;
+  EXPECT_TRUE(strArr->access(3,1).compare("chicken")==0);
   strArr->remove(3,1);
-  std::cout<<"No seg fault"<<std::endl;
   EXPECT_TRUE(strArr->access(3,1).compare("meow")==0);
-  std::cout<<"No seg fault"<<std::endl;
   delete strArr;
 }
 

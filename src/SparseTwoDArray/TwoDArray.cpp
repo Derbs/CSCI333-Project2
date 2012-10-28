@@ -169,33 +169,28 @@ void TwoDArray<T>::remove(int r, int c) {
   //the Node with that row/col identification (if it exists).  If it doesn't exist, we'll do nothing
   assert(r>=0 && r<numRows);
   assert(c>=0 && c<numCols);
-  if(numRows>=numCols) { //if we have more rows than columns, then access row directly, iterate 
-			 //through columns.
-    Node<T>* prv = rows[r];
-    Node<T>* curr = rows[r]->getNextCol();
-    while(curr!=0 && curr->getCol() <= c) {
-      if(curr->getCol() == c) {
-        prv->setNextCol(curr->getNextCol());
-	delete curr;
-	return;
-      }
-      prv = curr;
-      curr = curr->getNextCol();
+  Node<T>* prv = rows[r];
+  Node<T>* curr = rows[r]->getNextCol();
+  while(curr!=0 && curr->getCol() <= c) {
+    if(curr->getCol() == c) {
+      prv->setNextCol(curr->getNextCol());	
+      break;
     }
+    prv = curr;
+    curr = curr->getNextCol();
   }
-  else {  //if we have more columns than rows, then we access col directly and iterate through rows
-    Node<T>* curr = cols[r]->getNextRow();
-    Node<T>* prv = cols[c];
-    while(curr!=0 && curr->getRow() <= r) {
-      if(curr->getRow() == r) {
-        prv->setNextRow(curr->getNextRow());
-	delete curr;
-	return;
-      }
-      prv = curr;
-      curr = curr->getNextRow();
+
+  curr = cols[r]->getNextRow();
+  prv = cols[c];
+  while(curr!=0 && curr->getRow() <= r) {
+    if(curr->getRow() == r) {
+      prv->setNextRow(curr->getNextRow());
+      break;
     }
+    prv = curr;
+    curr = curr->getNextRow();
   }
+  return;
 }
 
 

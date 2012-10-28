@@ -3,3 +3,4 @@
 *_test
 build/*
 test.cpp
+*.swp

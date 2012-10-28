@@ -115,32 +115,30 @@ TEST(TwoDArrayTest, Remove) {
   //std::cout<<"No seg fault"<<std::endl;
   dblArr->insert(2,4,3.2);
   dblArr->insert(0,6,2.3);
-  std::cout<<"No seg fault"<<std::endl;
+  dblArr->insert(1,0,5);
+  dblArr->remove(1,0);
   dblArr->insert(1,5,13.42);
-  std::cout<<"No seg fault"<<std::endl;
-  dblArr->print();
-  EXPECT_EQ(dblArr->access(1,5),13.42);
-  std::cout<<"No seg fault"<<std::endl;
-  EXPECT_EQ(dblArr->access(0,6),2.3);
-  std::cout<<"No seg fault"<<std::endl;
-  dblArr->remove(0,6);
-  std::cout<<"No seg fault"<<std::endl;
   dblArr->remove(1,5);
-  std::cout<<"No seg fault"<<std::endl;
+  EXPECT_EQ(dblArr->access(1,5),13.42);
+  EXPECT_EQ(dblArr->access(0,6),2.3);
+  dblArr->remove(0,6);
+  dblArr->remove(1,5);
   EXPECT_EQ(dblArr->access(0,6),-0.1324);
-  std::cout<<"No seg fault"<<std::endl;
   EXPECT_EQ(dblArr->access(1,5),-0.1324);
-  std::cout<<"No seg fault"<<std::endl;
-  delete dblArr;
 
+  delete dblArr;
 
   TwoDArray<std::string>* strArr = new TwoDArray<std::string>(4,2,"meow");
   strArr->insert(3,1,"moo");
+  strArr->insert(3,1,"chicken");
   EXPECT_TRUE(strArr->access(0,0).compare("meow")==0);
   EXPECT_FALSE(strArr->access(3,1).compare("meow")==0);
   EXPECT_TRUE(strArr->access(3,1).compare("moo")==0);
+  std::cout<<"No seg fault"<<std::endl;
   strArr->remove(3,1);
+  std::cout<<"No seg fault"<<std::endl;
   EXPECT_TRUE(strArr->access(3,1).compare("meow")==0);
+  std::cout<<"No seg fault"<<std::endl;
   delete strArr;
 }
 
